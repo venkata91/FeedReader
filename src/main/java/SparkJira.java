@@ -94,6 +94,15 @@ public class SparkJira extends Jira {
     }
 
     public String toString() {
-        return getKey() + " - " + getTitle();
+        return getKey() + " - "
+                + getStatus() + " - "
+                + getTitle() + " - "
+                + getUrl() + " - "
+                + getIssueType() + " - "
+                + getAssignee() + " - "
+                + getReporter() + " - "
+                + getComponents() + " - "
+                + getAffectedVersions();
+
     }
 }
