@@ -1,21 +1,28 @@
+package feed.jira.parser;
+
+import org.joda.time.DateTime;
+
 /**
  * Created by venkat on 4/8/17.
  */
-public class Jira {
+public class Jira implements Comparable<Jira> {
     private String url;
     private String project;
     private String status;
     private String title;
+    private DateTime updatedAt;
 
     public Jira() {
 
     }
 
-    public Jira(String url, String project, String status, String title) {
+    public Jira(String url, String project,
+                String status, String title, DateTime updatedAt) {
         this.url = url;
         this.project = project;
         this.status = status;
         this.title = title;
+        this.updatedAt = updatedAt;
     }
 
     public String getUrl() {
@@ -48,5 +55,14 @@ public class Jira {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public DateTime getUpdatedAt() { return updatedAt; }
+
+    public void setUpdatedAt(DateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    @Override
+    public int compareTo(Jira jira) {
+        return getUpdatedAt().compareTo(jira.getUpdatedAt());
     }
 }

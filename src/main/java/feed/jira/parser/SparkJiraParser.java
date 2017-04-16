@@ -1,8 +1,16 @@
+package feed.jira.parser;
+
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.FeedException;
+import feed.jira.email.SSLEmailClient;
+import feed.jira.feed.jira.html.JiraHTMLFormatter;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +34,13 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
     private static final Pattern parantheses = Pattern.compile("\\(([^)]+)\\)");
 
     private static final String UNKNOWN = "UNKNOWN";
+
+    private static final DateTimeFormatter format =
+            DateTimeFormat.forPattern("d MMM, yyyy");
+
+    public static DateTimeFormatter getFormat() {
+        return format;
+    }
 
     public SparkJiraParser(String url, List<String> contentMatchList,
                            Set<String> jiraStatuses)
@@ -109,6 +124,7 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
                 jira = parseJiraContent(entry.getContents(), jira);
                 jira.setStatus(status);
                 jira = parseJiraTitle(entry.getTitle(), jira);
+                jira.setUpdatedAt(new DateTime(entry.getUpdatedDate()));
                 digest.add(jira);
             }
         } catch (FeedException fe) {
@@ -119,23 +135,76 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
         return digest;
     }
 
+    public List<SparkJira> digestWithStatusFilter() {
+        List<SparkJira> filteredDigest = new ArrayList<>();
+
+        System.out.println(jiraStatuses);
+
+        for(SparkJira jira : this.digest()) {
+            if(jiraStatuses.contains(jira.getStatus()) || jiraStatuses.isEmpty()) {
+                filteredDigest.add(jira);
+            }
+        }
+        return filteredDigest;
+    }
+
+    public List<SparkJira> digestWithTimeFilter(DateTime from) {
+        List<SparkJira> filteredDigest = this.digestWithStatusFilter();
+        List<SparkJira> jiraDigestFromTime = new ArrayList<>();
+
+        for(SparkJira jira : filteredDigest) {
+            if(jira.getUpdatedAt().compareTo(from) > 0) {
+                jiraDigestFromTime.add(jira);
+            }
+        }
+        return jiraDigestFromTime;
+    }
+
     public static void main(String[] args) throws FeedException, IOException {
         String url = "https://mail-archives.apache.org/mod_mbox/spark-issues/" +
                 "?format=atom";
         List<String> matchList = Arrays.asList("Key:", "URL:", "Project:", "Issue Type:",
                 "Components:", "Affects Versions:", "Reporter:",
                 "Assignee:", "Priority:", "Fix For:");
-        Set<String> jiraStatus = new HashSet<>(Arrays.asList("Created", "Resolved", "Commented"));
+        Set<String> jiraStatus = new HashSet<>(Arrays.asList("Created", "Resolved"));
         JiraParser sparkJiraParser = new SparkJiraParser(url, matchList, jiraStatus);
 
-        int count = 1;
-        for (Jira jira : sparkJiraParser.digest()) {
-            if (jiraStatus.contains(jira.getStatus())) {
-                System.out.println(count + " : " + jira);
-            }
-            SparkJira sparkJira = (SparkJira) jira;
-            // System.out.println(sparkJira.getRawContent());
-            count++;
+        StringBuffer jiraDigest = new StringBuffer();
+
+        if(args.length < 4) {
+            System.err.println("Not enough arguments passed");
+            System.err.println("<Email> <password> <from> <to>");
         }
+        String user = args[0];
+        String password = args[1];
+        String from = args[2];
+        String to = args[3];
+
+        SSLEmailClient emailClient = new SSLEmailClient(user, password);
+
+        List<? extends  Jira> filteredDigest;
+        Date today = new Date();
+        DateTime previous = new DateTime(today).minusDays(1);
+        String todayStr = new DateTime(today).toString(format);
+        System.out.println("Today " + todayStr);
+        try {
+            filteredDigest = sparkJiraParser.digestWithTimeFilter(previous);
+            // Sort by updated time
+            Collections.sort(filteredDigest);
+            // Sort by jira status
+            Collections.sort(filteredDigest, new Comparator<Jira>() {
+                public int compare(Jira o1, Jira o2) {
+                    return o1.getStatus().compareTo(o2.getStatus());
+                }
+            });
+
+            System.out.println(JiraHTMLFormatter.jiraDigestHTML(filteredDigest));
+
+            emailClient.sendEmail(from, to, "Spark JIRA daily digest " + todayStr,
+                   JiraHTMLFormatter.jiraDigestHTML(filteredDigest));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(from + " sent Spark JIRA digest to " +to);
     }
 }

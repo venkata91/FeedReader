@@ -1,3 +1,8 @@
+package feed.jira.parser;
+
+import org.joda.time.DateTime;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +22,8 @@ public class SparkJira extends Jira {
         super();
     }
 
-    public SparkJira(String url, String project, String status, String title) {
-        super(url, project, status, title);
+    public SparkJira(String url, String project, String status, String title, DateTime updatedAt) {
+        super(url, project, status, title, updatedAt);
     }
 
     public String getKey() {
@@ -96,6 +101,7 @@ public class SparkJira extends Jira {
     public String toString() {
         return getKey() + " - "
                 + getStatus() + " - "
+                + getUpdatedAt() + " - "
                 + getTitle() + " - "
                 + getUrl() + " - "
                 + getIssueType() + " - "
