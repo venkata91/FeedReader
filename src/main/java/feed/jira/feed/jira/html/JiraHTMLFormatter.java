@@ -20,7 +20,9 @@ public class JiraHTMLFormatter {
 
         String body = "<body>";
         String endBody = "</body>";
-        String table = "<table cellpadding=\"0\" border=\"0\" " +
+        String table1 = "<table cellpadding=\"5\" border=\"0\" " +
+                "cellspacing=\"10\" style=\"border-collapse:collapse\">";
+        String table2 = "<table cellpadding=\"0\" border=\"0\" " +
                 "cellspacing=\"10\" style=\"border-collapse:collapse\">";
         String tableE = "</table>";
 
@@ -58,7 +60,7 @@ public class JiraHTMLFormatter {
         for(Jira jira : jiraDigest) {
             SparkJira sparkJira = (SparkJira) jira;
             // htmlDigest.append(li);
-            htmlDigest.append(table);
+            htmlDigest.append(table1);
             htmlDigest.append(tbody);
             htmlDigest.append(div);
             htmlDigest.append(tr);
@@ -73,7 +75,7 @@ public class JiraHTMLFormatter {
             htmlDigest.append(tbodyE);
             htmlDigest.append(tableE);
 
-            htmlDigest.append(table);
+            htmlDigest.append(table2);
             htmlDigest.append(tbody);
             htmlDigest.append(div);
             htmlDigest.append(tr);
