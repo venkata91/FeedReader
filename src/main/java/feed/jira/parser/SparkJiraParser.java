@@ -9,6 +9,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
@@ -198,10 +201,13 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
                 }
             });
 
-            System.out.println(JiraHTMLFormatter.jiraDigestHTML(filteredDigest));
+            String htmlFormattedDigest = JiraHTMLFormatter.jiraDigestHTML(filteredDigest);
 
-            emailClient.sendEmail(from, to, "Spark JIRA daily digest " + todayStr,
-                   JiraHTMLFormatter.jiraDigestHTML(filteredDigest));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("/home/venkat/jiradigest.html")));
+            bw.write(htmlFormattedDigest);
+            bw.close();
+            // System.out.println(htmlFormattedDigest);
+            emailClient.sendEmail(from, to, "Spark JIRA daily digest " + todayStr, htmlFormattedDigest);
         } catch (ParseException e) {
             e.printStackTrace();
         }
