@@ -27,7 +27,7 @@ public class JiraHTMLFormatter {
         String body = "<body>";
         String endBody = "</body>";
 
-        String table = "<table id=\"hor-minimalist-b\">";
+        String table = "<table  style=\"font-family: &quot;Calibri&quot;, &quot;Verdana&quot;, &quot;Helvetica&quot;;font-size: 12px;background: #fff;width:750px;border-collapse: collapse;text-align: left;margin: 20px\">";
         String tableE = "</table>";
 
         String tbody = "<tbody>";
@@ -36,10 +36,10 @@ public class JiraHTMLFormatter {
         String tr = "<tr>";
         String trE = "</tr>";
 
-        String th = "<th>";
+        String th = "<th  style=\"font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px\">";
         String thE = "</th>";
 
-        String td = "<td>";
+        String td = "<td style=\"border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px\">";
         String tdE = "</td>";
 
         String div = "<div>";
@@ -51,30 +51,7 @@ public class JiraHTMLFormatter {
         String span = "<span>";
         String spanE = "</span>";
 
-        String tableStyle = "#hor-minimalist-a {\n" +
-                "        font-family: \"Calibri\", \"Verdana\", \"Helvetica\";\n" +
-                "        font-size: 12px;\n" +
-                "        background: #fff;\n" +
-                "        width: 720px;\n" +
-                "        border-collapse: collapse;\n" +
-                "        text-align: left;\n" +
-                "        margin: 20px;\n" +
-                "    }\n" +
-                "    #hor-minimalist-a th {\n" +
-                "        font-size: 14px;\n" +
-                "        font-weight: normal;\n" +
-                "        color: #039;\n" +
-                "        border-bottom: 2px solid #6678b1;\n" +
-                "        padding: 10px 8px;\n" +
-                "    }\n" +
-                "    #hor-minimalist-a td {\n" +
-                "        color: #669;\n" +
-                "        padding: 9px 8px 0;\n" +
-                "    }\n" +
-                "    #hor-minimalist-a tbody tr:hover td {\n" +
-                "        color: #009;\n" +
-                "    }\n" +
-                "    #hor-minimalist-b {\n" +
+        String tableStyle = "table {\n" +
                 "        font-family: \"Calibri\", \"Verdana\", \"Helvetica\";\n" +
                 "        font-size: 12px;\n" +
                 "        background: #fff;\n" +
@@ -83,30 +60,31 @@ public class JiraHTMLFormatter {
                 "        text-align: left;\n" +
                 "        margin: 20px;\n" +
                 "    }\n" +
-                "    #hor-minimalist-b th {\n" +
+                "    th {\n" +
                 "        font-size: 14px;\n" +
                 "        font-weight: normal;\n" +
                 "        color: #039;\n" +
                 "        border-bottom: 2px solid #6678b1;\n" +
                 "        padding: 10px 8px;\n" +
                 "    }\n" +
-                "    #hor-minimalist-b td {\n" +
+                "    td {\n" +
                 "        border-bottom: 1px solid #ccc;\n" +
                 "        color: #669;\n" +
                 "        padding: 6px 8px;\n" +
                 "    }\n" +
-                "    #hor-minimalist-b tbody tr:hover td {\n" +
+                "    tbody tr:hover td {\n" +
                 "        color: #009;\n" +
                 "    }\n";
 
         // htmlDigest.append(html);
         // htmlDigest.append(head);
-        htmlDigest.append(style);
-        htmlDigest.append(tableStyle);
-        htmlDigest.append(styleE);
+        // htmlDigest.append(style);
+        // htmlDigest.append(tableStyle);
+        // htmlDigest.append(styleE);
         // htmlDigest.append(endHead);
 
-        htmlDigest.append("<h2>Spark daily JIRA digest </h2>");
+        htmlDigest.append(body);
+        htmlDigest.append("<h2>Spark OS JIRA daily digest </h2>");
         htmlDigest.append(span);
         htmlDigest.append(table);
 
@@ -135,8 +113,9 @@ public class JiraHTMLFormatter {
         }
 
 
-        htmlDigest.append(tableE);
-        htmlDigest.append(span);
+        // htmlDigest.append(tableE);
+        // htmlDigest.append(span);
+        // htmlDigest.append(endBody);
         // htmlDigest.append(endHtml);
         return htmlDigest.toString();
     }

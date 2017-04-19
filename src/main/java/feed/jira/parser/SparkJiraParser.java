@@ -164,8 +164,7 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
     }
 
     public static void main(String[] args) throws FeedException, IOException {
-        String url = "https://mail-archives.apache.org/mod_mbox/spark-issues/" +
-                "?format=atom";
+        String url = "https://mail-archives.apache.org/mod_mbox/spark-issues/?format=atom";
         List<String> matchList = Arrays.asList("Key:", "URL:", "Project:", "Issue Type:",
                 "Components:", "Affects Versions:", "Reporter:",
                 "Assignee:", "Priority:", "Fix For:");
@@ -192,6 +191,10 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
         System.out.println("Today " + todayStr);
         try {
             filteredDigest = sparkJiraParser.digestWithTimeFilter(previous);
+            if(filteredDigest.size() <= 0) {
+                System.out.println("No new Spark JIRA digest for today");
+                return;
+            }
             // Sort by updated time
             Collections.sort(filteredDigest);
             // Sort by jira status
@@ -201,13 +204,15 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
                 }
             });
 
-            String htmlFormattedDigest = JiraHTMLFormatter.jiraDigestHTML(filteredDigest);
+            //String htmlFormattedDigest = JiraHTMLFormatter.inlineCss(
+                   // JiraHTMLFormatter.jiraDigestHTML(filteredDigest));
 
+            String htmlFormattedDigest = JiraHTMLFormatter.jiraDigestHTML(filteredDigest);
             BufferedWriter bw = new BufferedWriter(new FileWriter(new File("/home/venkat/jiradigest.html")));
             bw.write(htmlFormattedDigest);
             bw.close();
             // System.out.println(htmlFormattedDigest);
-            emailClient.sendEmail(from, to, "Spark JIRA daily digest " + todayStr, htmlFormattedDigest);
+            emailClient.sendEmail(from, to, "Spark OS JIRA daily digest - " + todayStr, htmlFormattedDigest);
         } catch (ParseException e) {
             e.printStackTrace();
         }
