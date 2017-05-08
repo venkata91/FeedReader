@@ -1,0 +1,99 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https:///code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" class="init">
+	
+$(document).ready(function() {
+	$('#spark').DataTable( {
+		"order": [[ 3, "desc" ]]
+	} );
+} );
+
+</script>
+</head>
+<body>
+   <h2>Spark OS JIRA daily digest </h2>
+   <span>
+      <table id="spark" style="font-family: &quot;Calibri&quot;, &quot;Verdana&quot;, &quot;Helvetica&quot;;font-size: 12px;background: #fff;width:750px;border-collapse: collapse;text-align: left;margin: 20px">
+        <thead>
+          <tr>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> JIRA </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Title </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Status </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Reporter </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Affects versions </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Components </th>
+            <th  style="font-size: 14px;font-weight: normal;color: #039;border-bottom: 2px solid #6678b1;padding: 10px 8px"> Updated At </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-20630> SPARK-20630</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Thread Dump link available in Executors tab irrespective of spark.ui.threadDumpsEnabled</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Created</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Jacek Laskowski</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.3.0]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ Web UI]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-20631> SPARK-20631</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">LogisticRegression._checkThresholdConsistency should use values not Params</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Created</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Maciej Szymkiewicz</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.2.0]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ ML,  PySpark]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-20632> SPARK-20632</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Allow 'Column.getItem()' API to accept Vector columns</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Created</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Kevin Ushey</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.1.1,  1.6.3]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ Spark Core]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-20633> SPARK-20633</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">FileFormatWriter wrap the FetchFailedException which breaks job's failover</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Created</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Liu Shaohui</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.0.1]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ SQL]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-20634> SPARK-20634</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">result of MLlib KMeans cluster is not stabilize</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Created</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Simon.J</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.0.2]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ MLlib]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-16931> SPARK-16931</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">PySpark access to data-frame bucketing api</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Resolved</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Greg Bowyer</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ 2.0.0]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ PySpark,  SQL]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+         <tr>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"><a href=  https://issues.apache.org/jira/browse/SPARK-12297> SPARK-12297</a> 	</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Add work-around for Parquet/Hive int96 timestamp bug.</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">Resolved</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px"> Ryan Blue</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">null</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">[ Spark Core]</td>
+            <td style="border-bottom: 1px solid #ccc;color: #669;padding: 6px 8px">7 May, 2017</td>
+         </tr>
+        </tbody>
+      </table>
+   </span>
+</body>
+</html>
