@@ -13,6 +13,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -47,7 +50,7 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
 
     public SparkJiraParser(String url, List<String> contentMatchList,
                            Set<String> jiraStatuses)
-            throws IOException, FeedException {
+            throws IOException, FeedException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         super();
         this.feedUrl = url;
         this.contentMatchList = contentMatchList;
@@ -165,7 +168,7 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
 
     public static String sendJiraDigest(String user, String password,
                                         String from, String to)
-            throws IOException, FeedException {
+            throws IOException, FeedException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         String result = "";
         String url = "https://mail-archives.apache.org/mod_mbox/spark-issues/?format=atom";
         List<String> matchList = Arrays.asList("Key:", "URL:", "Project:", "Issue Type:",
@@ -205,12 +208,12 @@ public class SparkJiraParser extends FeedReader implements JiraParser {
         return result;
     }
 
-    public static void main(String[] args) throws FeedException, IOException {
+    public static void main(String[] args) throws FeedException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         String url = "https://mail-archives.apache.org/mod_mbox/spark-issues/?format=atom";
         List<String> matchList = Arrays.asList("Key:", "URL:", "Project:", "Issue Type:",
                 "Components:", "Affects Versions:", "Reporter:",
                 "Assignee:", "Priority:", "Fix For:");
-        Set<String> jiraStatus = new HashSet<>();
+        Set<String> jiraStatus = new HashSet<>(Arrays.asList("Created", "Resolved"));
         JiraParser sparkJiraParser = new SparkJiraParser(url, matchList, jiraStatus);
 
         StringBuffer jiraDigest = new StringBuffer();

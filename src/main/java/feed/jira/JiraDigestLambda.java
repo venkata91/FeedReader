@@ -6,6 +6,9 @@ import com.rometools.rome.io.FeedException;
 import feed.jira.parser.SparkJiraParser;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 /**
@@ -40,6 +43,8 @@ public class JiraDigestLambda  implements RequestHandler<Map<String, String>, St
                 return SparkJiraParser.sendJiraDigest(user, password, from, to);
             } catch (IOException ioe) {
                 return ioe.getMessage();
+            } catch(KeyStoreException | NoSuchAlgorithmException | KeyManagementException se) {
+                return se.getMessage();
             } catch (FeedException fe) {
                 if (++retry == numRetries) {
                     return fe.getMessage();
